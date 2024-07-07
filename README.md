@@ -1,5 +1,7 @@
 # mortgageCalculator
 
+[![Python application](https://github.com/diogo-pessoa/mortgageCalculator/actions/workflows/python-app.yml/badge.svg)](https://github.com/diogo-pessoa/mortgageCalculator/actions/workflows/python-app.yml)
+
 Basic mortgage calculator (Python) deployed in AWS Api Gateway and Lambda
 
 ## Summary
