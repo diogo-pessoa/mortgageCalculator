@@ -1,0 +1,40 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+Resources:
+  MortgageCalculatorFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      Handler: app.lambda_handler
+      Runtime: python3.12
+      CodeUri: app_calc/
+      Environment:
+        Variables:
+          TABLE_NAME: !Ref MortgageCalculatorTable
+      Events:
+        Calculate:
+          Type: Api
+          Properties:
+            Path: /calculate
+            Method: post
+            RequestParameters:
+              method.request.header.Access-Control-Allow-Origin: false
+              method.request.header.Access-Control-Allow-Headers: false
+              method.request.header.Access-Control-Allow-Methods: false
+
+#  MortgageCalculatorTable:
+#    Type: AWS::DynamoDB::Table
+#    Properties:
+#      TableName: MortgageCalculatorTable
+#      AttributeDefinitions:
+#        - AttributeName: id
+#          AttributeType: S
+#      KeySchema:
+#        - AttributeName: id
+#          KeyType: HASH
+#      ProvisionedThroughput:
+#        ReadCapacityUnits: 5
+#        WriteCapacityUnits: 5
+Outputs:
+  MortgageCalculatorApi:
+    Description: "API Gateway endpoint URL for Mortgage Calculator"
+    Value: !Sub "https://${ServerlessRestApi}.execute-api.${AWS::Region}.amazonaws.com/Prod/calculate/"

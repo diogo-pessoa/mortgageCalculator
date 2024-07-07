@@ -13,10 +13,12 @@ function App() {
     setError(null);
 
     try {
-      const response = await fetch('YOUR_API_GATEWAY_URL/calculate', {
+        // TODO - remove CORS hardcodede after local testing
+      const response = await fetch('http://127.0.0.1:3001/calculate', {
         method: 'POST',
         headers: {
-          'Content-Type': 'application/json'
+          'Content-Type': 'application/json',
+          'Access-Control-Allow-Origin': '*',
         },
         body: JSON.stringify({ principal, annual_rate: annualRate, years })
       });
@@ -34,6 +36,7 @@ function App() {
   return (
     <Container>
       <h1 className="my-4">Mortgage Calculator</h1>
+      <h2 className="my-4">Monthly Repayments</h2>
       <Form onSubmit={handleSubmit}>
         <Form.Group as={Row} controlId="principal">
           <Form.Label column sm={2}>Principal</Form.Label>

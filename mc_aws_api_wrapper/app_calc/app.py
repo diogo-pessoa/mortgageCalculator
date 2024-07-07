@@ -15,11 +15,22 @@ def lambda_handler(event, context):
     if not all([principal, annual_rate, years]):
         return {
             'statusCode': 400,
+            'headers': {
+                'Access-Control-Allow-Origin': '*',  # Add this line
+                'Access-Control-Allow-Headers': '*',  # Add this line
+                'Access-Control-Allow-Methods': '*',  # Add this line
+            },
             'body': json.dumps({'error': 'Missing data'})
         }
 
     monthly_payment = calculate_mortgage(principal, annual_rate, years)
+    # TODO - Leaving the Allow CORS for local development. all some local development env vars to go around this later.
     return {
         'statusCode': 200,
+        'headers': {
+            'Access-Control-Allow-Origin': '*',  # Add this line
+            'Access-Control-Allow-Headers': '*',  # Add this line
+            'Access-Control-Allow-Methods': '*',  # Add this line
+        },
         'body': json.dumps({'monthly_payment': monthly_payment})
     }
